@@ -147,4 +147,19 @@ export class UsersService {
       return 'User not found';
     }
   }
+
+  async updateRefreshToken(userId: string, refreshToken: string) {
+    return await this.userModel.updateOne(
+      { _id: userId },
+      {
+        refreshToken,
+      },
+    );
+  }
+
+  async findUserByToken(refreshToken: string) {
+    return await this.userModel.findOne({
+      refreshToken,
+    });
+  }
 }
