@@ -16,6 +16,9 @@ class Company {
 
   @IsNotEmpty({ message: 'Name company is required' })
   name: string;
+
+  @IsNotEmpty({ message: 'Logo company is required' })
+  logo: string;
 }
 
 export class CreateJobDto {
@@ -32,6 +35,9 @@ export class CreateJobDto {
   @ValidateNested()
   @Type(() => Company)
   company: Company;
+
+  @IsNotEmpty({ message: 'Location is required' })
+  location: string;
 
   @IsNotEmpty({ message: 'Salary is required' })
   salary: number;

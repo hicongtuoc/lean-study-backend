@@ -8,7 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage } from 'src/decorator/customize';
 import { User } from 'src/decorator/user.decorator';
 import { IUser } from 'src/users/users.interface';
 import { CreateJobDto } from './dto/create-job.dto';
@@ -26,6 +26,7 @@ export class JobsController {
   }
 
   @Get()
+  @Public()
   findAll(
     @Query('current') currentPage: string,
     @Query('pageSize') limit: string,
@@ -35,6 +36,7 @@ export class JobsController {
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
     return this.jobsService.findOne(id);
   }
