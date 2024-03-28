@@ -54,8 +54,13 @@ export class CompaniesService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  async findOne(id: string) {
+    try {
+      const company = await this.companyModel.findOne({ _id: id });
+      return company;
+    } catch (error) {
+      return 'Company not found';
+    }
   }
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {
