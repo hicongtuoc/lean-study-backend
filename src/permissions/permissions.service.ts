@@ -78,6 +78,14 @@ export class PermissionsService {
     updatePermissionDto: UpdatePermissionDto,
     user: IUser,
   ) {
+    const isExist = await this.permissionModel.findOne({
+      apiPath: updatePermissionDto.apiPath,
+      method: updatePermissionDto.method,
+    });
+    if (isExist) {
+      throw new BadRequestException('Permission already exists');
+    }
+
     const permission = await this.permissionModel.updateOne(
       {
         _id: id,
