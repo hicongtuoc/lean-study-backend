@@ -26,10 +26,10 @@ export class CreateUserCvDto {
   url: string;
 
   @IsNotEmpty({ message: 'Company ID is required' })
-  @IsMongoId({ message: 'Company ID is invalid' })
+  @IsMongoId({ message: 'Company ID is mongo Id' })
   companyId: mongoose.Schema.Types.ObjectId;
 
   @IsNotEmpty({ message: 'Job ID is required' })
-  @IsMongoId({ message: 'Job ID is invalid' })
+  @IsMongoId({ message: 'Job ID is mongo Id' })
   jobId: mongoose.Schema.Types.ObjectId;
 }
