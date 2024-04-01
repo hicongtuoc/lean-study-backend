@@ -83,12 +83,12 @@ export class RolesService {
   }
 
   async update(id: string, updateRoleDto: UpdateRoleDto, user: IUser) {
-    const isExist = await this.roleModel.findOne({
-      name: updateRoleDto.name,
-    });
-    if (isExist) {
-      throw new BadRequestException('Role already exists');
-    }
+    // const isExist = await this.roleModel.findOne({
+    //   name: updateRoleDto.name,
+    // });
+    // if (isExist) {
+    //   throw new BadRequestException('Role already exists');
+    // }
 
     const role = await this.roleModel.updateOne(
       {
@@ -107,6 +107,10 @@ export class RolesService {
 
   async remove(id: string, user: IUser) {
     try {
+      const foundRole = await this.roleModel.findById(id);
+      if (foundRole.name === 'ADMIN') {
+        throw new BadRequestException('Cannot delete admin role');
+      }
       await this.roleModel.updateOne(
         {
           _id: id,

@@ -103,7 +103,14 @@ export class UsersService {
     try {
       const user = await this.userModel
         .findOne({ _id: id })
-        .select('-password');
+        .select('-password')
+        .populate({
+          path: 'role',
+          select: {
+            _id: 1,
+            name: 1,
+          },
+        });
       return user;
     } catch (error) {
       return 'User not found';
@@ -111,7 +118,13 @@ export class UsersService {
   }
 
   findOneByEmail(email: string) {
-    return this.userModel.findOne({ email: email });
+    return this.userModel.findOne({ email: email }).populate({
+      path: 'role',
+      select: {
+        name: 1,
+        permission: 1,
+      },
+    });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto, user: IUser) {
@@ -133,6 +146,10 @@ export class UsersService {
   // TODO: loại bỏ thư viện soft-delete-plugin-mongoose
   async remove(id: string, user: IUser) {
     try {
+      const foundUser = await this.userModel.findById(id);
+      if (foundUser.email === 'admin@fotusoft.com') {
+        throw new BadRequestException('Cannot delete admin user');
+      }
       await this.userModel.updateOne(
         { _id: id },
         {
