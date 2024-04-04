@@ -11,9 +11,9 @@ import {
 import { PermissionsService } from './permissions.service';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
-import { ResponseMessage } from 'src/decorator/customize';
-import { User } from 'src/decorator/user.decorator';
-import { IUser } from 'src/users/users.interface';
+import { ResponseMessage } from '../decorator/customize';
+import { User } from '../decorator/user.decorator';
+import { IUser } from '../users/users.interface';
 
 @Controller('permissions')
 export class PermissionsController {

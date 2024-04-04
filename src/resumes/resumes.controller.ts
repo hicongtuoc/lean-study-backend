@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { ResumesService } from './resumes.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
-import { ResponseMessage } from 'src/decorator/customize';
-import { User } from 'src/decorator/user.decorator';
-import { IUser } from 'src/users/users.interface';
+import { ResponseMessage } from '../decorator/customize';
+import { User } from '../decorator/user.decorator';
+import { IUser } from '../users/users.interface';
 
 @Controller('resumes')
 export class ResumesController {

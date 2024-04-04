@@ -2,9 +2,9 @@ import { BadGatewayException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import ms from 'ms';
-import { RegisterUserDto } from 'src/users/dto/create-user.dto';
-import { IUser } from 'src/users/users.interface';
-import { UsersService } from 'src/users/users.service';
+import { RegisterUserDto } from '../users/dto/create-user.dto';
+import { IUser } from '../users/users.interface';
+import { UsersService } from '../users/users.service';
 import { Response } from 'express';
 
 @Injectable()

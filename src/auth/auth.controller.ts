@@ -7,13 +7,13 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Public, ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage } from '../decorator/customize';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
-import { RegisterUserDto } from 'src/users/dto/create-user.dto';
+import { RegisterUserDto } from '../users/dto/create-user.dto';
 import { Response, Request } from 'express';
-import { User } from 'src/decorator/user.decorator';
-import { IUser } from 'src/users/users.interface';
+import { User } from '../decorator/user.decorator';
+import { IUser } from '../users/users.interface';
 
 @Controller('auth')
 export class AuthController {

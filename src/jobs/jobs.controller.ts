@@ -8,9 +8,9 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Public, ResponseMessage } from 'src/decorator/customize';
-import { User } from 'src/decorator/user.decorator';
-import { IUser } from 'src/users/users.interface';
+import { Public, ResponseMessage } from '../decorator/customize';
+import { User } from '../decorator/user.decorator';
+import { IUser } from '../users/users.interface';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { JobsService } from './jobs.service';
