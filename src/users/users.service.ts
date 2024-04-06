@@ -8,11 +8,13 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IUser } from './users.interface';
 import aqp from 'api-query-params';
 import { USER_ROLE } from 'src/consts';
+import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: SoftDeleteModel<UserDocument>,
+    @InjectModel(Role.name) private roleModel: SoftDeleteModel<RoleDocument>,
   ) {}
 
   getHashedPassword(password: string) {
@@ -58,12 +60,15 @@ export class UsersService {
       throw new BadRequestException('Email already exists');
     }
 
+    //fetch user role
+    const userRole = await this.roleModel.findOne({ name: USER_ROLE });
+
     const hashedPassword = this.getHashedPassword(registerUserDto.password);
 
     const user = await this.userModel.create({
       ...registerUserDto,
       password: hashedPassword,
-      role: USER_ROLE,
+      role: userRole._id,
     });
 
     const { password, ...result } = user.toJSON();
@@ -123,7 +128,6 @@ export class UsersService {
       path: 'role',
       select: {
         name: 1,
-        permissions: 1,
       },
     });
   }
@@ -148,7 +152,7 @@ export class UsersService {
   async remove(id: string, user: IUser) {
     try {
       const foundUser = await this.userModel.findById(id);
-      if (foundUser.email === 'admin@fotusoft.com') {
+      if (foundUser && foundUser.email === 'admin@fotusoft.com') {
         throw new BadRequestException('Cannot delete admin user');
       }
       await this.userModel.updateOne(
@@ -176,8 +180,15 @@ export class UsersService {
   }
 
   async findUserByToken(refreshToken: string) {
-    return await this.userModel.findOne({
-      refreshToken,
-    });
+    return await this.userModel
+      .findOne({
+        refreshToken,
+      })
+      .populate({
+        path: 'role',
+        select: {
+          name: 1,
+        },
+      });
   }
 }

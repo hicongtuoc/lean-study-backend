@@ -14,10 +14,14 @@ import { RegisterUserDto } from '../users/dto/create-user.dto';
 import { Response, Request } from 'express';
 import { User } from '../decorator/user.decorator';
 import { IUser } from '../users/users.interface';
+import { RolesService } from 'src/roles/roles.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private rolesService: RolesService,
+  ) {}
 
   @Public()
   @UseGuards(LocalAuthGuard)
@@ -36,7 +40,9 @@ export class AuthController {
 
   @ResponseMessage('Get account success!')
   @Get('/account')
-  handleGetAccount(@User() user: IUser) {
+  async handleGetAccount(@User() user: IUser) {
+    const temp = (await this.rolesService.findOne(user.role._id)) as any;
+    user.permissions = temp;
     return { user };
   }
 

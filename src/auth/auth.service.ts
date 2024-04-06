@@ -6,6 +6,7 @@ import { RegisterUserDto } from '../users/dto/create-user.dto';
 import { IUser } from '../users/users.interface';
 import { UsersService } from '../users/users.service';
 import { Response } from 'express';
+import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private rolesService: RolesService,
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
@@ -20,15 +22,20 @@ export class AuthService {
     if (user) {
       const isValid = this.usersService.isValidPassword(pass, user.password);
       if (isValid) {
-        const { password, ...result } = user.toJSON();
-        return result;
+        const userRole = user.role as unknown as { _id: string; name: string };
+        const temp = (await this.rolesService.findOne(userRole._id)) as any;
+        const objUser = {
+          ...user.toJSON(),
+          permissions: temp?.permissions ?? [],
+        };
+        return objUser;
       }
     }
     return null;
   }
 
   async login(user: IUser, response: Response) {
-    const { _id, name, email, role } = user;
+    const { _id, name, email, role, permissions } = user;
     const payload = {
       sub: 'token login',
       iss: 'from server',
@@ -53,6 +60,7 @@ export class AuthService {
         name,
         email,
         role,
+        permissions,
       },
     };
   }
@@ -102,6 +110,10 @@ export class AuthService {
 
       await this.usersService.updateRefreshToken(_id.toString(), refresh_token);
 
+      //fetch user's role
+      const userRole = user.role as unknown as { _id: string; name: string };
+      const temp = (await this.rolesService.findOne(userRole._id)) as any;
+
       response.clearCookie('refresh_token');
       response.cookie('refresh_token', refresh_token, {
         httpOnly: true,
@@ -115,6 +127,7 @@ export class AuthService {
           name,
           email,
           role,
+          permissions: temp?.permissions ?? [],
         },
       };
     } catch (error) {

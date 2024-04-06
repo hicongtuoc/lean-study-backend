@@ -70,7 +70,7 @@ export class RolesService {
     try {
       const role = await this.roleModel.findById(id);
       return role.populate({
-        path: Permission.name,
+        path: 'permissions',
         select: {
           _id: 1,
           name: 1,
