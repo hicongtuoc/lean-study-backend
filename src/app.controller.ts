@@ -13,7 +13,6 @@ export class AppController {
   @Get()
   @Public()
   getHello(): string {
-    console.log('LONG LE DANG');
     return this.appService.getHello();
   }
 }

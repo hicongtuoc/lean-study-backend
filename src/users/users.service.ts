@@ -122,7 +122,7 @@ export class UsersService {
       path: 'role',
       select: {
         name: 1,
-        permission: 1,
+        permissions: 1,
       },
     });
   }
