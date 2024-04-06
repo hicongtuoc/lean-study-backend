@@ -7,6 +7,7 @@ import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IUser } from './users.interface';
 import aqp from 'api-query-params';
+import { USER_ROLE } from 'src/consts';
 
 @Injectable()
 export class UsersService {
@@ -62,7 +63,7 @@ export class UsersService {
     const user = await this.userModel.create({
       ...registerUserDto,
       password: hashedPassword,
-      role: 'USER',
+      role: USER_ROLE,
     });
 
     const { password, ...result } = user.toJSON();
