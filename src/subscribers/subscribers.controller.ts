@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
@@ -12,9 +11,9 @@ import {
 import { SubscribersService } from './subscribers.service';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { UpdateSubscriberDto } from './dto/update-subscriber.dto';
-import { ResponseMessage } from 'src/decorator/customize';
-import { User } from 'src/decorator/user.decorator';
-import { IUser } from 'src/users/users.interface';
+import { ResponseMessage } from '../decorator/customize';
+import { User } from '../decorator/user.decorator';
+import { IUser } from '../users/users.interface';
 
 @Controller('subscribers')
 export class SubscribersController {

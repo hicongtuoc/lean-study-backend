@@ -14,7 +14,7 @@ import { RegisterUserDto } from '../users/dto/create-user.dto';
 import { Response, Request } from 'express';
 import { User } from '../decorator/user.decorator';
 import { IUser } from '../users/users.interface';
-import { RolesService } from 'src/roles/roles.service';
+import { RolesService } from '../roles/roles.service';
 
 @Controller('auth')
 export class AuthController {

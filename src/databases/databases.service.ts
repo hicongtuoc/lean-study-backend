@@ -5,12 +5,12 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import {
   Permission,
   PermissionDocument,
-} from 'src/permissions/schemas/permission.schema';
-import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
-import { User, UserDocument } from 'src/users/schemas/user.schema';
-import { UsersService } from 'src/users/users.service';
+} from '../permissions/schemas/permission.schema';
+import { Role, RoleDocument } from '../roles/schemas/role.schema';
+import { User, UserDocument } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 import { INIT_PERMISSIONS } from './sample';
-import { ADMIN_ROLE, USER_ROLE } from 'src/consts';
+import { ADMIN_ROLE, USER_ROLE } from '../consts';
 
 @Injectable()
 export class DatabasesService implements OnModuleInit {

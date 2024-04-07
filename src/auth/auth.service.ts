@@ -6,7 +6,7 @@ import { RegisterUserDto } from '../users/dto/create-user.dto';
 import { IUser } from '../users/users.interface';
 import { UsersService } from '../users/users.service';
 import { Response } from 'express';
-import { RolesService } from 'src/roles/roles.service';
+import { RolesService } from '../roles/roles.service';
 
 @Injectable()
 export class AuthService {

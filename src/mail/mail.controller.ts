@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { Public, ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage } from '../decorator/customize';
 import { MailerService } from '@nestjs-modules/mailer';
 
 @Controller('mail')
@@ -18,7 +18,10 @@ export class MailController {
       to: 'hicongtuoc@gmail.com',
       from: '"Support Team" <support@example.com>',
       subject: 'Testing Nest MailerModule ✔',
-      html: '<b>Welcome to Nest MailerModule LONGLD</b>',
+      template: 'mail',
+      context: {
+        hostname: '2Healing',
+      },
     });
   }
 }

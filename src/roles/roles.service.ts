@@ -6,8 +6,7 @@ import { Role, RoleDocument } from './schemas/role.schema';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import aqp from 'api-query-params';
 import { IUser } from '../users/users.interface';
-import { Permission } from '../permissions/schemas/permission.schema';
-import { ADMIN_ROLE } from 'src/consts';
+import { ADMIN_ROLE } from '../consts';
 
 @Injectable()
 export class RolesService {
