@@ -42,7 +42,7 @@ export class AuthController {
   @Get('/account')
   async handleGetAccount(@User() user: IUser) {
     const temp = (await this.rolesService.findOne(user.role._id)) as any;
-    user.permissions = temp;
+    user.permissions = temp?.permissions ?? [];
     return { user };
   }
 
