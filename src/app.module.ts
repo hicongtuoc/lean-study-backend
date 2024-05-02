@@ -15,6 +15,9 @@ import { PermissionsModule } from './permissions/permissions.module';
 import { DatabasesModule } from './databases/databases.module';
 import { SubscribersModule } from './subscribers/subscribers.module';
 import { MailModule } from './mail/mail.module';
+import { LessonsModule } from './lessons/lessons.module';
+import { QuestionsModule } from './questions/questions.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -43,6 +46,9 @@ import { MailModule } from './mail/mail.module';
     DatabasesModule,
     SubscribersModule,
     MailModule,
+    LessonsModule,
+    QuestionsModule,
+    CoursesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
